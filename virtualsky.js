@@ -4,7 +4,17 @@
 	A browser planetarium using HTML5's <canvas>.
 */
 /*
-	USAGE: See http://slowe.github.io/VirtualSky/
+	USAGE:
+		<!--[if lt IE 9]><script src="http://http://virtualsky.lco.global/embed/excanvas.js" type="text/javascript"></script><![endif]-->
+		<script src="http://virtualsky.lco.global/embed/jquery-1.7.1.min.js" type="text/javascript"></script>
+		<script src="http://virtualsky.lco.global/embed/virtualsky.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		<!--
+			$(document).ready(function(){
+				planetarium = $.virtualsky({id:'starmapper',projection:'polar'});	// Assumes you want to draw this to a <div> with the id 'starmapper'
+			});
+		// -->
+		</script>
 		
 	OPTIONS (default values in brackets):
 		id ('starmap') - The ID for the HTML element where you want the sky inserted
@@ -212,7 +222,7 @@ window.fullScreenApi = fullScreenApi;
 /*! VirtualSky */
 function VirtualSky(input){
 
-	this.version = "0.7.2";
+	this.version = "0.7.0";
 
 	this.ie = false;
 	this.excanvas = (typeof G_vmlCanvasManager != 'undefined') ? true : false;
@@ -761,12 +771,11 @@ function VirtualSky(input){
 	var fromqs = (typeof this.q.lang==="string" || typeof this.setlang==="string");
 	this.langs = {
 		'ar': { "language": {"name": "&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;","alignment": "right" } },
-		'cs': { "language": {"name": "&#268;e&#353;tina","alignment": "left" } },
+		'cs': { "language": {"name": "Čeština","alignment": "left" } },
 		'en': { "language": {"name": "English","alignment": "left" } },
 		'es': { "language": {"name": "Espa&#241;ol","alignment": "left" } },
 		'fr': { "language": {"name": "Fran&#231;ais","alignment": "left" } },
 		'it': { "language": {"name": "Italiano","alignment": "left" } },
-		'nl': { "language": {"name": "Nederlands","alignment": "left" } },
 		'pt': { "language": {"name": "Portugu&#234;s","alignment": "left" } },
 	}; // The contents of the language will be loaded from the JSON language file
 	this.lang = this.langs['en'];	// default
@@ -1148,7 +1157,7 @@ VirtualSky.prototype.createSky = function(){
 	if(this.container.length == 0){
 		// No appropriate container exists. So we'll make one.
 		S('body').append('<div id="'+this.id+'"></div>');
-		this.container = S('#'+this.id);
+		this.container = $('#'+this.id);
 	}
 	this.container.css('position','relative');
 	var _obj = this;
@@ -1418,9 +1427,8 @@ VirtualSky.prototype.toggleHelp = function(){
 					'</li>'; }
 		this.container.append('<div class="'+v+'_help">'+
 			'<div class="'+v+'_dismiss" title="'+this.getPhrase('close')+'">&times;</div>'+
-			'<div style="margin-bottom: 0.5em;">'+this.getPhrase('keyboard')+'</div>'+
+			'<span>'+this.getPhrase('keyboard')+'</span>'+
 			'<div class="'+v+'_helpinner"><ul></ul></div>'+	
-			'<div style="font-size:0.8em;margin-top: 0.5em;">'+this.lang.title+': '+this.version+'</div>'+
 		'</div>');
 
 		var hlp = S('.'+v+'_help');
@@ -2026,7 +2034,7 @@ VirtualSky.prototype.draw = function(proj){
 		var credit = this.getPhrase('power');
 		var metric_credit = this.drawText(credit,this.padding,this.tall-this.padding);
 		// Float a transparent link on top of the credit text
-		if(d.find('.'+this.id+'_credit').length == 0) d.append('<div class="'+this.id+'_credit"><a href="http://slowe.github.io/VirtualSky/" target="_parent" title="Las Cumbres Observatory">'+this.getPhrase('powered')+'</a></div>');
+		if(d.find('.'+this.id+'_credit').length == 0) d.append('<div class="'+this.id+'_credit"><a href="http://virtualsky.lco.global/" target="_parent" title="Las Cumbres Observatory">'+this.getPhrase('powered')+'</a></div>');
 		d.find('.'+this.id+'_credit').css({padding:0,'z-index':20,display:'block',overflow:'hidden','background-color':'transparent'});
 		d.find('.'+this.id+'_credit a').css({display:'block',width:Math.ceil(metric_credit)+'px',height:fontsize+'px'});
 		this.positionCredit();
