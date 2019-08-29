@@ -786,7 +786,7 @@ function VirtualSky(input){
 	this.language = (typeof this.q.lang==="string") ? this.q.lang : (typeof this.setlang==="string" ? this.setlang : (navigator) ? (navigator.userLanguage||navigator.systemLanguage||navigator.language||browser.language) : "");
 	this.langs = {
 		'ar': { "language": {"name": "&#1575;&#1604;&#1593;&#1585;&#1576;&#1610;&#1577;","alignment": "right" } },
-		'cs': { "language": {"name": "Ã„Å’eÃ…Â¡tina","alignment": "left" } },
+		'cs': { "language": {"name": "Čeština","alignment": "left" } },
 		'en': { "language": {"name": "English","alignment": "left" } },
 		'es': { "language": {"name": "Espa&#241;ol","alignment": "left" } },
 		'fr': { "language": {"name": "Fran&#231;ais","alignment": "left" } },
@@ -1802,7 +1802,7 @@ VirtualSky.prototype.Transform = function(p, rot, indeg){
 	else return [a,b];
 }
 // Convert from B1875 to J2000
-// Using B = 1900.0 + (JD Ã¢Ë†â€™ 2415020.31352) / 365.242198781 and p73 Practical Astronomy With A Calculator
+// Using B = 1900.0 + (JD − 2415020.31352) / 365.242198781 and p73 Practical Astronomy With A Calculator
 VirtualSky.prototype.fk1tofk5 = function(a,b){
 	// Convert from B1875 -> J2000
 	return this.Transform([a,b], [0.9995358730015703, -0.02793693620138929, -0.012147682028606801, 0.027936935758478665, 0.9996096732234282, -0.00016976035344812515, 0.012147683047201562, -0.00016968744936278707, 0.9999261997781408]);
